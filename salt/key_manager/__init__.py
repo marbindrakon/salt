@@ -27,7 +27,7 @@ class BaseKeyManager(object):
             try:
                 self.crypt = Crypticle(opts, opts['keystore_secret'])
             except KeyError:
-                raise exceptions.SaltMasterError('keystore_secret must be set \
+                raise exceptions.KeyManagerConfigError('keystore_secret must be set \
                         when private key encryption is enabled.')
         else:
             self.crypt = None
@@ -86,7 +86,7 @@ def get_key_manager(opts):
     try:
         manager_mod_name = opts['keystore_module']
     except KeyError:
-        raise exceptions.SaltMasterError('No keystore_module was provided.')
+        raise exceptions.KeyManagerConfigError('No keystore_module was provided.')
 
     try:
         if HAS_IMPORTLIB:
@@ -96,7 +96,7 @@ def get_key_manager(opts):
                 locals(), fromlist=[str(manager_mod_name)]), manager_mod_name)
     except ImportError:
         import traceback
-        raise exceptions.SaltMasterError('Unable to import module for keystore %s. \
+        raise exceptions.KeyManagerConfigError('Unable to import module for keystore %s. \
                 The exception was %s' % (manager_mod_name, traceback.format_exc()))
 
-    return manager_mod(opts)
+    return manager_mod.MANAGER(opts)

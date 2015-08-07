@@ -707,6 +707,15 @@ VALID_OPTS = {
 
     # If set, all minion exec module actions will be rerouted through sudo as this user
     'sudo_user': str,
+
+    # Key manager class to be used
+    'keystore_module': str,
+
+    # AES key string to be used to encrypt keystore private keys
+    'keystore_secret': str,
+
+    # Encrypt private keys with AES encryption in the keystore
+    'encrypt_private_keys': bool
 }
 
 # default configurations
@@ -884,6 +893,9 @@ DEFAULT_MINION_OPTS = {
     'cache_sreqs': True,
     'cmd_safe': True,
     'sudo_user': '',
+    'keystore_module': 'salt.key_manager.local_files',
+    'keystore_secret' : '',
+    'encrypt_private_keys': False,
 }
 
 DEFAULT_MASTER_OPTS = {
@@ -1096,6 +1108,9 @@ DEFAULT_MASTER_OPTS = {
     'rotate_aes_key': True,
     'cache_sreqs': True,
     'dummy_pub': False,
+    'keystore_module': 'salt.key_manager.local_files',
+    'keystore_secret' : '',
+    'encrypt_private_keys': False
 }
 
 # ----- Salt Cloud Configuration Defaults ----------------------------------->

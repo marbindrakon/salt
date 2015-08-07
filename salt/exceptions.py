@@ -269,3 +269,19 @@ class NotImplemented(SaltException):
     Used when a module runs a command which returns an error and wants
     to show the user the output gracefully instead of dying
     '''
+
+class KeyExists(SaltException):
+    """
+    Raised by a key manager when asked to overwrite an existing key.
+    """
+
+class KeyManagerConfigError(SaltException):
+    """
+    Raised by a key manager when it could not funciton due to
+    misconfiguration.
+    """
+
+class KeyNotFound(SaltException):
+    """
+    Raised by a key manager when the requested key could not be found.
+    """
